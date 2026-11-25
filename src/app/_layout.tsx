@@ -1,18 +1,22 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { NativeTabs } from 'expo-router/native-tabs';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
-
-SplashScreen.preventAutoHideAsync();
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+// `_layout.tsx` decides how the screens in this folder are arranged.
+// Here we use a bottom tab bar. Each Trigger's `name` matches a file:
+//   name="index" -> src/app/index.tsx
+//   name="feed"  -> src/app/feed.tsx
+export default function RootLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <NativeTabs>
+      <NativeTabs.Trigger name="index">
+        <NativeTabs.Trigger.Label>Matches</NativeTabs.Trigger.Label>
+        {/* `sf` is the icon on iPhone, `md` is the icon on Android */}
+        <NativeTabs.Trigger.Icon sf="soccerball" md="sports_soccer" />
+      </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="feed">
+        <NativeTabs.Trigger.Label>Feed</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon sf="bubble.left.and.bubble.right" md="forum" />
+      </NativeTabs.Trigger>
+    </NativeTabs>
   );
 }
