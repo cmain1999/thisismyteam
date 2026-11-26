@@ -1,7 +1,8 @@
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { MatchCard } from '@/components/match-card';
+import { NextMatchCard } from '@/components/next-match-card';
 import { TeamHeader } from '@/components/team-header';
 import { matches } from '@/data/matches';
 import { useColors } from '@/hooks/use-colors';
@@ -27,10 +28,16 @@ export default function MatchesScreen() {
         keyExtractor={(match) => match.id}
         renderItem={({ item }) => <MatchCard match={item} />}
         ListHeaderComponent={
-          <>
-          <TeamHeader teamName="Wolverhampton Wanderers" />
-          </>
+          <View style={styles.header}>
+          <TeamHeader teamName="Arsenal" />
+          <NextMatchCard
+            teamName="Arsenal"
+            opponentName="Chelsea"
+            kickoff="2023-10-15T15:00:00Z"
+          />
+          </View>
         }
+        
         contentContainerStyle={styles.list}
       />
     </SafeAreaView>
@@ -43,6 +50,9 @@ const styles = StyleSheet.create({
   },
   list: {
     padding: 16,
+    gap: 12,
+  },
+  header: {
     gap: 12,
   },
 });
