@@ -1,4 +1,6 @@
+import { PrimaryButton } from '@/components/primary-button';
 import { useColors } from '@/hooks/use-colors';
+import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 type NextMatchCardProps = {
@@ -9,6 +11,7 @@ type NextMatchCardProps = {
 
 export function NextMatchCard({ teamName, opponentName, kickoff }: NextMatchCardProps) {
   const colors = useColors();
+  const [hasPredicted, setHasPredicted] = useState(false);
 
   return (
     <View style={[styles.card, { backgroundColor: colors.card }]}>
@@ -23,6 +26,16 @@ export function NextMatchCard({ teamName, opponentName, kickoff }: NextMatchCard
             })}
         </Text>
       </View>
+      <PrimaryButton
+        title={hasPredicted ? 'Prediction saved ✓' : 'Predict Score'}
+        onPress={() => setHasPredicted(true)}
+        disabled={hasPredicted}
+      />
+      {hasPredicted && (
+        <Text style={[styles.mostPredicted, { color: colors.mutedText }]}>
+          Most Predicted Score: 2-1 (34% of fans)
+        </Text>
+      )}
     </View>
   );
 }
@@ -34,20 +47,25 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: '700',
   },
-    matchRow: {
+  matchRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'baseline',
+    marginBottom: 8, // with the card's gap of 8, leaves 16 above the button
   },
   teamName: {
     fontSize: 24,
-    fontWeight: '700',
+    fontWeight: '300',
     flexShrink: 1, // Allow text to shrink if it's too long
   },
   kickoff: {
     fontSize: 16
+  },
+  mostPredicted: {
+    fontSize: 14,
+    textAlign: 'center',
   },
 }); 

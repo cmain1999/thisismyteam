@@ -30,7 +30,7 @@ export function TeamHeader({teamName}: TeamHeaderProps) {
 
 const styles = StyleSheet.create({
   header: {
-    height: 300,
+    height: 250,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
